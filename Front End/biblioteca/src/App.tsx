@@ -9,6 +9,7 @@ function App() {
   return (
    <div className="container">
     <h1>Biblioteca</h1>
+    <h2>Biel é gay</h2>
     <div className="card-grid">
     {data.map(bookData => <Card 
     price={bookData.price} 
