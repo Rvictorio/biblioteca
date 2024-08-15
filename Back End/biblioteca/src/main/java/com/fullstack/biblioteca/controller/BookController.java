@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/book")
@@ -29,21 +28,6 @@ public class BookController {
     public List<BookResponseDTO> getAll(){
         List<BookResponseDTO> bookList = repository.findAll().stream().map(BookResponseDTO::new).toList();
         return bookList;
-    }
-
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PutMapping("/{id}")
-    public BookResponseDTO updateBook(@PathVariable Long id, @RequestBody BookRequestDTO data) {
-        Optional<Book> optionalBook = repository.findById(id);
-        if (optionalBook.isPresent()) {
-            Book book = optionalBook.get();
-            book.setTitle(data.title());
-            book.setImage(data.image());
-            book.setPrice(data.price());
-            repository.save(book);
-            return new BookResponseDTO(book);
-        }
-        throw new RuntimeException("Book not found with id " + id);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
